@@ -1,0 +1,38 @@
+@startuml diagrama
+
+class Game 
+{
+    - snake: Snake
+    - food: Food
+    - score: int
+    + start()
+    + pause()
+    + restart()
+}
+
+class Snake 
+{
+    - body: List<Position>
+    - direction: Direction
+    + move()
+    + grow()
+}
+
+class Food 
+{
+    - position: Position
+    + generatePosition()
+}
+
+class Position 
+{
+    - x: int
+    - y: int
+}
+
+Game --> Snake
+Game --> Food
+Snake --> Position
+Food --> Position
+
+@enduml
