@@ -1,4 +1,4 @@
-#include "Position.hpp"
+#include <Position.hpp>
 
 // Constructor que inicializa las coordenadas x e y
 Posicion::Posicion(int x, int y) : x(x), y(y) {}

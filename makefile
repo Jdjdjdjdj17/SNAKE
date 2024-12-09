@@ -1,37 +1,29 @@
-# Nombre del ejecutable
-EXECUTABLE = bin/snake_game
+# Directorios de origen y destino
+SRC_DIR := src
+BIN_DIR := bin
 
-# Directorios
-SRC_DIR = src
-INCLUDE_DIR = include
-ASSETS_DIR = assets
-FTXUI_DIR = FTXUI
+SFML := -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lbox2d
 
-# Archivos fuente y objeto
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
-OBJECTS = $(SOURCES:.cpp=.o)
+# Obtener todos los archivos .cpp en el directorio de origen
+CPP_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 
-# Bandera del compilador
-CXX = g++
-CXXFLAGS = -I$(INCLUDE_DIR) -I$(FTXUI_DIR)/include -std=c++17 -Wall -Wextra -pedantic
+# Generar los nombres de los archivos .exe en el directorio de destino
+EXE_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(BIN_DIR)/%.exe,$(CPP_FILES))
 
-# Enlace con la biblioteca FTXUI
-LDFLAGS = -L$(FTXUI_DIR)/build -lftxui-screen -lftxui-dom -lftxui-component -ltinfo -lpthread
+# Regla para compilar cada archivo .cpp y generar el archivo .exe correspondiente
+$(BIN_DIR)/%.exe: $(SRC_DIR)/%.cpp
+	g++ $< -o $@ $(SFML) -Iinclude
 
-# Generar el ejecutable
-$(EXECUTABLE): $(OBJECTS)
-	@mkdir -p bin
-	$(CXX) $(OBJECTS) -o $(EXECUTABLE) $(LDFLAGS)
-	@echo "Ejecutable creado en: $(EXECUTABLE)"
+# Regla por defecto para compilar todos los archivos .cpp
+all: $(EXE_FILES)
 
-# Compilar los archivos fuente en objetos
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Regla para ejecutar cada archivo .exe
+run%: $(BIN_DIR)/%.exe
+	./$<
 
-# Limpieza de archivos binarios y objetos
+# Regla para limpiar los archivos generados
 clean:
-	rm -f $(SRC_DIR)/*.o $(EXECUTABLE)
-	@echo "Archivos compilados eliminados."
+	rm -f $(EXE_FILES)
 
-# Regla por defecto
-all: $(EXECUTABLE)
+.PHONY: all clean
+.PHONY: run-%

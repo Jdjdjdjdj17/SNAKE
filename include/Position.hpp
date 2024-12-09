@@ -1,6 +1,3 @@
-#ifndef POSICION_H
-#define POSICION_H
-
 class Posicion {
 public:
     int x, y;
@@ -12,4 +9,3 @@ public:
     }
 };
 
-#endif // POSICION_H

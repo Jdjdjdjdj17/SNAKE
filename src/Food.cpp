@@ -1,4 +1,4 @@
-#include "Food.hpp"
+#include <Food.hpp>
 #include <cstdlib>
 
 Food::Food(int ancho, int alto) {

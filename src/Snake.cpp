@@ -1,4 +1,4 @@
-#include "Snake.hpp"
+#include <Snake.hpp>
 
 Snake::Snake(int xInicial, int yInicial) {
     cuerpo.push_back(Posicion(xInicial, yInicial));

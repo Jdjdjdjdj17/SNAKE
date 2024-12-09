@@ -1,7 +1,4 @@
-#ifndef FOOD_H
-#define FOOD_H
-
-#include "Position.hpp"
+#include <Position.hpp>
 
 class Food {
 private:
@@ -13,5 +10,3 @@ public:
     const Posicion& obtenerPosicion() const;
     void regenerar(int ancho, int alto);
 };
-
-#endif // FOOD_H
